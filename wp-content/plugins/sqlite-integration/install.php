@@ -64,6 +64,7 @@ function wp_install($blog_title, $user_name, $user_email, $public, $deprecated =
   
   wp_cache_flush();
 
+/*
   if (isset($_SERVER['SERVER_SOFTWARE']) && stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== false || isset($_SERVER['SERVER_SIGNATURE']) && stripos($_SERVER['SERVER_SIGNATURE'], 'apache') !== false) {
   	;// Your server is Apache. Nothing to do more.
   } else {
@@ -72,6 +73,7 @@ function wp_install($blog_title, $user_name, $user_email, $public, $deprecated =
     echo $server_message;
     echo '</p></div>';
   }
+*/
 
   return array('url' => $guessurl, 'user_id' => $user_id, 'password' => $user_password, 'password_message' => $message);
 }
