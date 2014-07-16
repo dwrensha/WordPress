@@ -110,7 +110,7 @@ if(	get_option("home")==REALLYSTATICURLHOME."static" ){
 		
 	 
 	
-	$isonn=reallystatic_testdestinationsetting(true);
+	$isonn=true;#reallystatic_testdestinationsetting(true);
 
 	echo '<table  width="400px" height="100px"><tr><td style="text-color: white; font-size:25px; background-color:'.ison($isonn==true,1,"green","red").';">'.__("Trying Write/Read/Delete File", 'reallystatic').'</td> </tr></table>';
 	global $ison;
