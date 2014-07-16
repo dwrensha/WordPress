@@ -14,7 +14,7 @@ Author URI: https://sandstorm.io
 
 
 function sandstorm_publish() {
-   $result = shell_exec('/var/wordpress/wp-content/plugins/sandstorm/publish-it.sh');
+   $result = shell_exec('/publish-it.sh');
 }
 
 add_action('publish_post', 'sandstorm_publish');
