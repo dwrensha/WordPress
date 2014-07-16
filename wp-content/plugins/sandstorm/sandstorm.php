@@ -17,7 +17,7 @@ function sandstorm_publish() {
    $result = shell_exec('/publish-it.sh');
 }
 
-add_action('publish_post', 'sandstorm_publish');
+//add_action('publish_post', 'sandstorm_publish');
 
 
 function sandstorm_publishing_info() {
