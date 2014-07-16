@@ -7,7 +7,7 @@
 Plugin Name: Sandstorm
 Plugin URI: http://github.com/dwrensha/wordpress.git
 Description: Sandstorm things.
-Author: David Renshaw
+Author: The Sandstorm Team
 Version: 0.0.1
 Author URI: https://sandstorm.io
 */
