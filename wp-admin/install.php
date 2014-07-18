@@ -38,6 +38,7 @@ require_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
 /** Load WordPress Administration Upgrade API */
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
+
 /** Load WordPress Translation Install API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
@@ -53,6 +54,22 @@ if ( is_blog_installed() ) {
 
 $headers = apache_request_headers();
 $user_login = $headers['X-Sandstorm-User-Id'];
+
+
+/*
+ Sandstorm: provide the installation data without prompting the user.
+*/
+
+$headers = apache_request_headers();
+
+foreach ($headers as $header => $value) {
+    echo "$header: $value <br />\n";
+}
+
+$username = $headers['X-Sandstorm-Username'];
+if (!isset($username)) {
+  $username = 'sandstorm user';
+}
 
 wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
 $link = wp_guess_url() . '/wp-login.php';
