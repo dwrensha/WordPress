@@ -62,6 +62,13 @@ update_option('active_plugins', array('sandstorm/sandstorm.php',
 //activate_plugin('sandstorm/sandstorm.php');
 //activate_plugin('root-relative-urls/sb_root_relative_urls.php');
 
+
+global $wp_rewrite;
+$wp_rewrite->set_permalink_structure('/%year%/%monthnum%/%postname%/');
+$wp_rewrite->flush_rules();
+
+update_option( 'default_comment_status', '' );
+
 $link = wp_guess_url() . '/wp-admin/index.php';
 wp_redirect( $link );
 die();
