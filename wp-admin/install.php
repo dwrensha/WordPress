@@ -47,16 +47,20 @@ require_once( ABSPATH . 'wp-includes/wp-db.php' );
 
 $headers = apache_request_headers();
 
-foreach ($headers as $header => $value) {
-    echo "$header: $value <br />\n";
-}
-
 $username = $headers['X-Sandstorm-Username'];
 if (!isset($username)) {
   $username = 'sandstorm user';
 }
 
+$username = 'User';
+
 wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
-$link = wp_guess_url() . '/wp-login.php';
+
+
+activate_plugin('sandstorm/sandstorm.php');
+activate_plugin('root-relative-urls/sb_root_relative_urls.php');
+
+
+$link = wp_guess_url() . '/index.php';
 wp_redirect( $link );
 die();
