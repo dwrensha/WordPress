@@ -12,6 +12,18 @@ Version: 0.0.1
 Author URI: https://sandstorm.io
 */
 
+function auto_login() {
+    if (!is_user_logged_in()) {
+        $user_login = 'User';
+        $user = get_userdatabylogin($user_login);
+        $user_id = $user->ID;
+        wp_set_current_user($user_id, $user_login);
+        wp_set_auth_cookie($user_id);
+        do_action('wp_login', $user_login);
+    }
+}
+add_action('init', 'auto_login');
+
 
 function sandstorm_publish() {
    $result = shell_exec('/publish-it.sh');
