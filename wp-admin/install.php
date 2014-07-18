@@ -56,11 +56,12 @@ $username = 'User';
 
 wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
 
+update_option('active_plugins', array('sandstorm/sandstorm.php',
+                                'root-relative-urls/sb_root_relative_urls.php',
+                                'sqlite-integration/sqlite-integration.php'));
+//activate_plugin('sandstorm/sandstorm.php');
+//activate_plugin('root-relative-urls/sb_root_relative_urls.php');
 
-activate_plugin('sandstorm/sandstorm.php');
-activate_plugin('root-relative-urls/sb_root_relative_urls.php');
-
-
-$link = wp_guess_url() . '/index.php';
+$link = wp_guess_url() . '/wp-admin/index.php';
 wp_redirect( $link );
 die();
