@@ -38,23 +38,36 @@ require_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
 /** Load WordPress Administration Upgrade API */
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-/** Load WordPress Translation Install API */
-require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-
 /** Load wpdb */
-require_once( ABSPATH . WPINC . '/wp-db.php' );
+require_once( ABSPATH . 'wp-includes/wp-db.php' );
 
-// Let's check to make sure WP isn't already installed.
-if ( is_blog_installed() ) {
-  error_log('tried to install, but blog is already installed!');
-  wp_redirect(wp_guess_url() . '/wp-admin/index.php');
-  die();
-}
+/*
+ Sandstorm: provide the installation data without prompting the user.
+*/
 
 $headers = apache_request_headers();
-$user_login = $headers['X-Sandstorm-User-Id'];
+
+foreach ($headers as $header => $value) {
+    echo "$header: $value <br />\n";
+}
+
+$username = $headers['X-Sandstorm-Username'];
+if (!isset($username)) {
+  $username = 'sandstorm user';
+}
+
+$username = 'User';
 
 wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
-$link = wp_guess_url() . '/wp-login.php';
+
+        $user_login = 'User';
+        $user = get_userdatabylogin($user_login);
+        $user_id = $user->ID;
+        wp_set_current_user($user_id, $user_login);
+        wp_set_auth_cookie($user_id);
+        do_action('wp_login', $user_login);
+
+
+$link = wp_guess_url() . '/index.php';
 wp_redirect( $link );
 die();
