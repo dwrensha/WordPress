@@ -16,7 +16,7 @@ Author URI: https://sandstorm.io
 function auth_redirect() {}
 
 function auto_login() {
-    if (!is_user_logged_in()) {
+    if (!is_user_logged_in() && isset(apache_request_headers()['X-Sandstorm-Username'])) {
         $user_login = 'User';
         $user = get_userdatabylogin($user_login);
         $user_id = $user->ID;
