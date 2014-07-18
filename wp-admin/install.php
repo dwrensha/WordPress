@@ -76,6 +76,13 @@ update_option('active_plugins', array('sandstorm/sandstorm.php',
                                       'sqlite-integration/sqlite-integration.php'));
 
 
+
+global $wp_rewrite;
+$wp_rewrite->set_permalink_structure('/%year%/%monthnum%/%postname%/');
+$wp_rewrite->flush_rules();
+
+update_option( 'default_comment_status', '' );
+
 $link = wp_guess_url() . '/wp-admin/index.php';
 wp_redirect( $link );
 die();
