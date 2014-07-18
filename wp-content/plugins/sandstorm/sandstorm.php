@@ -12,6 +12,9 @@ Version: 0.0.1
 Author URI: https://sandstorm.io
 */
 
+// don't redirect to wp-login.php
+function auth_redirect() {}
+
 function auto_login() {
     if (!is_user_logged_in()) {
         $user_login = 'User';
