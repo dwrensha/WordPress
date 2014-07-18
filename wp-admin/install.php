@@ -38,45 +38,44 @@ require_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
 /** Load WordPress Administration Upgrade API */
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
+
 /** Load WordPress Translation Install API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 /** Load wpdb */
 require_once( ABSPATH . WPINC . '/wp-db.php' );
 
-nocache_headers();
+// Let's check to make sure WP isn't already installed.
+if ( is_blog_installed() ) {
+  error_log('tried to install, but blog is already installed!');
+  wp_redirect(wp_guess_url() . '/wp-admin/index.php');
+  die();
+}
+
+$headers = apache_request_headers();
+$user_login = $headers['X-Sandstorm-User-Id'];
+
 
 /*
  Sandstorm: provide the installation data without prompting the user.
 */
 
-if (!function_exists('apache_request_headers')) {
-        function apache_request_headers() {
-            foreach($_SERVER as $key=>$value) {
-                if (substr($key,0,5)=="HTTP_") {
-                    $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
-                    $out[$key]=$value;
-                }else{
-                    $out[$key]=$value;
-                }
-            }
-            return $out;
-        }
-}
-
 $headers = apache_request_headers();
-
-foreach ($headers as $header => $value) {
-    echo "$header: $value <br />\n";
-}
 
 $username = $headers['X-Sandstorm-Username'];
 if (!isset($username)) {
   $username = 'sandstorm user';
 }
 
+$username = 'User';
+
 wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
-$link = wp_guess_url() . '/wp-login.php';
+
+
+activate_plugin('sandstorm/sandstorm.php');
+activate_plugin('root-relative-urls/sb_root_relative_urls.php');
+
+
+$link = wp_guess_url() . '/index.php';
 wp_redirect( $link );
 die();
-
