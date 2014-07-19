@@ -54,4 +54,14 @@ Note: If your site may get a lot of traffic, consider putting it behind a CDN.
   <?php
 }
 
-add_action('rightnow_end', 'sandstorm_publishing_info');
+function add_sandstorm_dashboard_widget() {
+  remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+  remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');
+
+  wp_add_dashboard_widget( 'sandstorm_dashboard_widget', 'Sandstorm Publishing Information',
+                           'sandstorm_publishing_info');
+
+}
+
+add_action( 'wp_dashboard_setup', 'add_sandstorm_dashboard_widget' );
+
