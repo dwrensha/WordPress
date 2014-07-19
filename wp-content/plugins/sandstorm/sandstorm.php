@@ -51,7 +51,23 @@ function sandstorm_publishing_info() {
   <p>
 Note: If your site may get a lot of traffic, consider putting it behind a CDN.
   </p>
+  <form name="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" id="generate-static" class="initial-form hide-if-no-js">
+   <p class="submit">
+    <input type="hidden" name="action" value="generate_static">
+   <?php wp_nonce_field( 'generate-static' ); ?>
+   <?php submit_button(__('Generate Static Site Now'), 'primary', 'generate', false); ?>
+   <br class="clear"/>
+   </p>
+  </form>
   <?php
+}
+
+add_action('admin_post_generate_static', 'sandstorm_generate_static');
+
+function sandstorm_generate_static() {
+   sandstorm_publish();
+   wp_redirect(wp_guess_url() . '/wp-admin/index.php');
+   die();
 }
 
 function add_sandstorm_dashboard_widget() {
