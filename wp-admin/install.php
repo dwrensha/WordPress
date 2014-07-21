@@ -47,14 +47,23 @@ require_once( ABSPATH . 'wp-includes/wp-db.php' );
 
 $headers = apache_request_headers();
 
+$user_login = 'Admin';
+
+wp_install("example blog", $user_login, "user@example.com", 1, '', "garply" );
+
 $username = $headers['X-Sandstorm-Username'];
 if (!isset($username)) {
   $username = 'sandstorm user';
 }
 
-$username = 'User';
+$user_id = wp_update_user( array( 'ID' => get_userdatabylogin($user_login),
+                                  'nickname' => $username,
+                                  'display_name' => $username));
 
-wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
+if ( is_wp_error( $user_id ) ) {
+    error_log("error updating ");
+}
+
 
 update_option('active_plugins', array('sandstorm/sandstorm.php',
                                 'root-relative-urls/sb_root_relative_urls.php',
