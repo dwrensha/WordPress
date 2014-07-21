@@ -62,14 +62,23 @@ $user_login = $headers['X-Sandstorm-User-Id'];
 
 $headers = apache_request_headers();
 
+$user_login = 'Admin';
+
+wp_install("example blog", $user_login, "user@example.com", 1, '', "garply" );
+
 $username = $headers['X-Sandstorm-Username'];
 if (!isset($username)) {
   $username = 'sandstorm user';
 }
 
-$username = 'User';
+$user_id = wp_update_user( array( 'ID' => get_userdatabylogin($user_login),
+                                  'nickname' => $username,
+                                  'display_name' => $username));
 
-wp_install("example blog", $username, "user@example.com", 1, '', "garply" );
+if ( is_wp_error( $user_id ) ) {
+    error_log("error updating ");
+}
+
 
 $link = wp_guess_url() . '/wp-admin/index.php';
 wp_redirect( $link );
