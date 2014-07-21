@@ -18,7 +18,7 @@ function auth_redirect() {}
 function auto_login() {
     $permissions = apache_request_headers()['X-Sandstorm-Permissions'];
     if (!is_user_logged_in() && !(FALSE === strpos($permissions, 'admin'))) {
-        $user_login = 'User';
+        $user_login = 'Admin';
         $user = get_userdatabylogin($user_login);
         $user_id = $user->ID;
         wp_set_current_user($user_id, $user_login);
