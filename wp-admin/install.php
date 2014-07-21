@@ -41,6 +41,16 @@ require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 /** Load wpdb */
 require_once( ABSPATH . 'wp-includes/wp-db.php' );
 
+
+
+// Let's check to make sure WP isn't already installed.
+if ( is_blog_installed() ) {
+  error_log('tried to install, but blog is already installed!');
+  wp_redirect(wp_guess_url() . '/wp-admin/index.php');
+  die();
+}
+
+
 /*
  Sandstorm: provide the installation data without prompting the user.
 */
