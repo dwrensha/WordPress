@@ -28,6 +28,12 @@ function auto_login() {
 }
 add_action('init', 'auto_login');
 
+function sandstorm_refuse_login() {
+  wp_redirect(wp_guess_url() . '/index.php');
+  die();
+}
+
+add_action('login_init', 'sandstorm_refuse_login');
 
 function sandstorm_publish() {
    $result = shell_exec('/publish-it.sh');
