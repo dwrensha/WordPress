@@ -46,7 +46,7 @@ function sandstorm_publishing_info() {
   $lines = array();
   $result = exec('/sandstorm/bin/getPublicId', $lines);
 
-  echo "<p>Your site is available at: <a href='$lines[2]'>$lines[2]</a></p>";
+  echo "<p>Your site is available at: <a target='_blank' href='$lines[2]'>$lines[2]</a></p>";
 
   if ($lines[3] == 'true') {
     echo "<p>If you weren't using a demo account, you could additionally publish the site to an arbitrary domain you control.</p>";
