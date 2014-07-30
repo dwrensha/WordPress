@@ -56,23 +56,24 @@ function sandstorm_publishing_info() {
   ?>
 
   <p> To set up your domain to point at your published site,
-  add the following DNS records to your domain. Replace host.example.com with your site's hostname.
+  add the following DNS records to your domain. Replace <code>host.example.com</code> with your site's hostname.
   </p>
   <p/>
   <?php
 
-  echo "<p> host.example.com IN CNAME $lines[1] </p>";
-  echo "<p> sandstorm-www.host.example.com IN TXT $lines[0] </p>";
+  echo "<code>host.example.com IN CNAME $lines[1] \n";
+  echo "sandstorm-www.host.example.com IN TXT $lines[0] </code>";
   ?>
   <p/>
   <p>
-Note: If your site may get a lot of traffic, consider putting it behind a CDN.
+  Note: If your site may get a lot of traffic, consider putting it behind a CDN.
+  <a href="https://cloudflare.com" target="_blank">CloudFlare</a>, for example, can do this for free.
   </p>
   <form name="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" id="generate-static" class="initial-form hide-if-no-js">
    <p class="submit">
     <input type="hidden" name="action" value="generate_static">
    <?php wp_nonce_field( 'generate-static' ); ?>
-   <?php submit_button(__('Generate Static Site Now'), 'primary', 'generate', false); ?>
+   <?php submit_button(__('Publish Now'), 'primary', 'generate', false); ?>
    <br class="clear"/>
    </p>
   </form>
