@@ -43,14 +43,24 @@ add_action('publish_post', 'sandstorm_publish');
 
 
 function sandstorm_publishing_info() {
+  $lines = array();
+  $result = exec('/sandstorm/bin/getPublicId', $lines);
+
+  echo "<p>Your site is available at: <a href='$lines[2]'>$lines[2]</a></p>";
+
+  if ($lines[3] == 'true') {
+    echo "<p>If you weren't using a demo account, you could additionally publish the site to an arbitrary domain you control.</p>";
+    return;
+  }
+
   ?>
+
   <p> To set up your domain to point at your published site,
   add the following DNS records to your domain. Replace host.example.com with your site's hostname.
   </p>
   <p/>
   <?php
-  $lines = array();
-  $result = exec('/sandstorm/bin/getPublicId', $lines);
+
   echo "<p> host.example.com IN CNAME $lines[1] </p>";
   echo "<p> sandstorm-www.host.example.com IN TXT $lines[0] </p>";
   ?>
