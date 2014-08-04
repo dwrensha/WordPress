@@ -1769,7 +1769,7 @@ function wp_underscore_playlist_templates() {
 ?>
 <script type="text/html" id="tmpl-wp-playlist-current-item">
 	<# if ( data.image ) { #>
-	<img src="{{ data.thumb.src }}" alt="" />
+	<img src="{{data.thumb.src}}" alt="" />
 	<# } #>
 	<div class="wp-playlist-caption">
 		<span class="wp-playlist-item-meta wp-playlist-item-title"><?php
@@ -1782,7 +1782,7 @@ function wp_underscore_playlist_templates() {
 </script>
 <script type="text/html" id="tmpl-wp-playlist-item">
 	<div class="wp-playlist-item">
-		<a class="wp-playlist-caption" href="{{ data.src }}">
+		<a class="wp-playlist-caption" href="{{data.src}}">
 			{{ data.index ? ( data.index + '. ' ) : '' }}
 			<# if ( data.caption ) { #>
 				{{ data.caption }}
