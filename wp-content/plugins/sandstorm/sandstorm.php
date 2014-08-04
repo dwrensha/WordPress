@@ -4,10 +4,10 @@
  * @version 0.0.1
  */
 /*
-Plugin Name: Sandstorm
+Plugin Name: Sandstorm Integration
 Plugin URI: http://github.com/dwrensha/wordpress.git
 Description: Sandstorm things.
-Author: The Sandstorm Team
+Author: Sandstorm Development Group, Inc.
 Version: 0.0.1
 Author URI: https://sandstorm.io
 */
@@ -16,14 +16,34 @@ Author URI: https://sandstorm.io
 function auth_redirect() {}
 
 function auto_login() {
-    $permissions = apache_request_headers()['X-Sandstorm-Permissions'];
-    if (!is_user_logged_in() && !(FALSE === strpos($permissions, 'admin'))) {
-        $user_login = 'Admin';
-        $user = get_userdatabylogin($user_login);
-        $user_id = $user->ID;
-        wp_set_current_user($user_id, $user_login);
-        wp_set_auth_cookie($user_id);
-        do_action('wp_login', $user_login);
+    if (!is_user_logged_in()) {
+       $headers = apache_request_headers();
+       $permissions = $headers['X-Sandstorm-Permissions'];
+       $sandstorm_user_id = $headers['X-Sandstorm-User-Id'];
+       if (!(FALSE === strpos($permissions, 'admin'))) {
+           $user_login = 'Admin';
+           $user = get_userdatabylogin($user_login);
+           $user_id = $user->ID;
+           error_log($user_id);
+           wp_set_current_user($user_id, $user_login);
+           wp_set_auth_cookie($user_id);
+           do_action('wp_login', $user_login);
+       } else if ($sandstorm_user_id) {
+           $user_id = username_exists($sandstorm_user_id);
+           if (!$user_id) {
+               $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
+               $user_id = wp_create_user($sandstorm_user_id, $random_password, $sandstorm_user_id . '@example.com');
+               $username = $headers['X-Sandstorm-Username'];
+               wp_update_user( array( 'ID' => $user_id,
+                                      'nickname' => $username,
+                                     'display_name' => $username,
+                                     'role' => 'editor'));
+
+           }
+           wp_set_current_user($user_id, $sandstorm_user_id);
+           wp_set_auth_cookie($user_id);
+           do_action('wp_login', $sandstorm_user_id);
+       }
     }
 }
 add_action('init', 'auto_login');
