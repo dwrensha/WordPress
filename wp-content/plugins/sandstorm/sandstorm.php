@@ -37,7 +37,7 @@ function auto_login() {
                wp_update_user( array( 'ID' => $user_id,
                                       'nickname' => $username,
                                      'display_name' => $username,
-                                     'role' => 'editor'));
+                                     'role' => 'contributor'));
 
            }
            wp_set_current_user($user_id, $sandstorm_user_id);
