@@ -79,7 +79,6 @@ if ( is_wp_error( $user_id ) ) {
     error_log("error updating ");
 }
 
-
 $link = wp_guess_url() . '/wp-admin/index.php';
 wp_redirect( $link );
 die();
