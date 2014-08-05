@@ -230,8 +230,8 @@ class Plugin_Upgrader_Skin extends WP_Upgrader_Skin {
 		$this->decrement_update_count( 'plugin' );
 
 		$update_actions =  array(
-			'activate_plugin' => '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . urlencode( $this->plugin ), 'activate-plugin_' . $this->plugin) . '" target="_parent">' . __( 'Activate Plugin' ) . '</a>',
-			'plugins_page' => '<a href="' . self_admin_url( 'plugins.php' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>'
+			'activate_plugin' => '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . urlencode( $this->plugin ), 'activate-plugin_' . $this->plugin) . '">' . __( 'Activate Plugin' ) . '</a>',
+			'plugins_page' => '<a href="' . self_admin_url( 'plugins.php' ) . '">' . __( 'Return to Plugins page' ) . '</a>'
 		);
 		if ( $this->plugin_active || ! $this->result || is_wp_error( $this->result ) || ! current_user_can( 'activate_plugins' ) )
 			unset( $update_actions['activate_plugin'] );
@@ -444,8 +444,8 @@ class Bulk_Plugin_Upgrader_Skin extends Bulk_Upgrader_Skin {
 	public function bulk_footer() {
 		parent::bulk_footer();
 		$update_actions =  array(
-			'plugins_page' => '<a href="' . self_admin_url( 'plugins.php' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>',
-			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>'
+			'plugins_page' => '<a href="' . self_admin_url( 'plugins.php' ) . '">' . __( 'Return to Plugins page' ) . '</a>',
+			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '">' . __( 'Return to WordPress Updates page' ) . '</a>'
 		);
 		if ( ! current_user_can( 'activate_plugins' ) )
 			unset( $update_actions['plugins_page'] );
@@ -496,8 +496,8 @@ class Bulk_Theme_Upgrader_Skin extends Bulk_Upgrader_Skin {
 	public function bulk_footer() {
 		parent::bulk_footer();
 		$update_actions =  array(
-			'themes_page' => '<a href="' . self_admin_url( 'themes.php' ) . '" target="_parent">' . __( 'Return to Themes page' ) . '</a>',
-			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>'
+			'themes_page' => '<a href="' . self_admin_url( 'themes.php' ) . '">' . __( 'Return to Themes page' ) . '</a>',
+			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '">' . __( 'Return to WordPress Updates page' ) . '</a>'
 		);
 		if ( ! current_user_can( 'switch_themes' ) && ! current_user_can( 'edit_theme_options' ) )
 			unset( $update_actions['themes_page'] );
@@ -561,21 +561,21 @@ class Plugin_Installer_Skin extends WP_Upgrader_Skin {
 		$from = isset($_GET['from']) ? wp_unslash( $_GET['from'] ) : 'plugins';
 
 		if ( 'import' == $from )
-			$install_actions['activate_plugin'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;from=import&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '" target="_parent">' . __( 'Activate Plugin &amp; Run Importer' ) . '</a>';
+			$install_actions['activate_plugin'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;from=import&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '">' . __( 'Activate Plugin &amp; Run Importer' ) . '</a>';
 		else
-			$install_actions['activate_plugin'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '" target="_parent">' . __( 'Activate Plugin' ) . '</a>';
+			$install_actions['activate_plugin'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '">' . __( 'Activate Plugin' ) . '</a>';
 
 		if ( is_multisite() && current_user_can( 'manage_network_plugins' ) ) {
-			$install_actions['network_activate'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;networkwide=1&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '" target="_parent">' . __( 'Network Activate' ) . '</a>';
+			$install_actions['network_activate'] = '<a href="' . wp_nonce_url( 'plugins.php?action=activate&amp;networkwide=1&amp;plugin=' . urlencode( $plugin_file ), 'activate-plugin_' . $plugin_file ) . '">' . __( 'Network Activate' ) . '</a>';
 			unset( $install_actions['activate_plugin'] );
 		}
 
 		if ( 'import' == $from ) {
-			$install_actions['importers_page'] = '<a href="' . admin_url( 'import.php' ) . '" target="_parent">' . __( 'Return to Importers' ) . '</a>';
+			$install_actions['importers_page'] = '<a href="' . admin_url( 'import.php' ) . '">' . __( 'Return to Importers' ) . '</a>';
 		} elseif ( $this->type == 'web' ) {
-			$install_actions['plugins_page'] = '<a href="' . self_admin_url( 'plugin-install.php' ) . '" target="_parent">' . __( 'Return to Plugin Installer' ) . '</a>';
+			$install_actions['plugins_page'] = '<a href="' . self_admin_url( 'plugin-install.php' ) . '">' . __( 'Return to Plugin Installer' ) . '</a>';
 		} else {
-			$install_actions['plugins_page'] = '<a href="' . self_admin_url( 'plugins.php' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>';
+			$install_actions['plugins_page'] = '<a href="' . self_admin_url( 'plugins.php' ) . '">' . __( 'Return to Plugins page' ) . '</a>';
 		}
 
 		if ( ! $this->result || is_wp_error($this->result) ) {
@@ -665,12 +665,12 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 		$install_actions['activate'] = '<a href="' . esc_url( $activate_link ) . '" class="activatelink"><span aria-hidden="true">' . __( 'Activate' ) . '</span><span class="screen-reader-text">' . sprintf( __( 'Activate &#8220;%s&#8221;' ), $name ) . '</span></a>';
 
 		if ( is_network_admin() && current_user_can( 'manage_network_themes' ) )
-			$install_actions['network_enable'] = '<a href="' . esc_url( wp_nonce_url( 'themes.php?action=enable&amp;theme=' . urlencode( $stylesheet ), 'enable-theme_' . $stylesheet ) ) . '" target="_parent">' . __( 'Network Enable' ) . '</a>';
+			$install_actions['network_enable'] = '<a href="' . esc_url( wp_nonce_url( 'themes.php?action=enable&amp;theme=' . urlencode( $stylesheet ), 'enable-theme_' . $stylesheet ) ) . '">' . __( 'Network Enable' ) . '</a>';
 
 		if ( $this->type == 'web' )
-			$install_actions['themes_page'] = '<a href="' . self_admin_url( 'theme-install.php' ) . '" target="_parent">' . __( 'Return to Theme Installer' ) . '</a>';
+			$install_actions['themes_page'] = '<a href="' . self_admin_url( 'theme-install.php' ) . '">' . __( 'Return to Theme Installer' ) . '</a>';
 		elseif ( current_user_can( 'switch_themes' ) || current_user_can( 'edit_theme_options' ) )
-			$install_actions['themes_page'] = '<a href="' . self_admin_url( 'themes.php' ) . '" target="_parent">' . __( 'Return to Themes page' ) . '</a>';
+			$install_actions['themes_page'] = '<a href="' . self_admin_url( 'themes.php' ) . '">' . __( 'Return to Themes page' ) . '</a>';
 
 		if ( ! $this->result || is_wp_error($this->result) || is_network_admin() || ! current_user_can( 'switch_themes' ) )
 			unset( $install_actions['activate'], $install_actions['preview'] );
@@ -748,7 +748,7 @@ class Theme_Upgrader_Skin extends WP_Upgrader_Skin {
 				unset( $update_actions['preview'], $update_actions['activate'] );
 		}
 
-		$update_actions['themes_page'] = '<a href="' . self_admin_url( 'themes.php' ) . '" target="_parent">' . __( 'Return to Themes page' ) . '</a>';
+		$update_actions['themes_page'] = '<a href="' . self_admin_url( 'themes.php' ) . '">' . __( 'Return to Themes page' ) . '</a>';
 
 		/**
 		 * Filter the list of action links available following a single theme update.
@@ -827,7 +827,7 @@ class Language_Pack_Upgrader_Skin extends WP_Upgrader_Skin {
 	public function bulk_footer() {
 		$this->decrement_update_count( 'translation' );
 		$update_actions = array();
-		$update_actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>';
+		$update_actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php' ) . '">' . __( 'Return to WordPress Updates page' ) . '</a>';
 
 		/**
 		 * Filter the list of action links available following a translations update.
