@@ -149,18 +149,12 @@ function sandstorm_search_form($orig) {
     } else {
        // Use Google search for the published static site.
 
-      // TODO Is there a better way to grab only the one element I care about?
-      $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      $element_id = 'google_search_form';
-      for ( $i = 0; $i < 10; $i++ ) {
-        $element_id .= substr($chars, wp_rand(0, strlen($chars) - 1), 1);
-      }
-
       $form = '<form action="http://google.com/search" id="searchform" class="search-form" method="get" name="google-search" target="_blank">'.
-            '<input type="hidden" name="sitesearch" id="' . $element_id . '">'.
+            '<input type="hidden" name="sitesearch" class="google-search-input">'.
             '<input type="text" name="q" id="s" placeholder="Search" class="search-field">'.
             '</form>'.
-            '<script type="text/javascript">document.getElementById("' . $element_id . '").value=window.location;</script>';
+            '<script type="text/javascript">'.
+            'Array.prototype.forEach.call(document.getElementsByClassName("google-search-input"), function (x) {x.value=window.location});</script>';
       return $form;
    }
 }
