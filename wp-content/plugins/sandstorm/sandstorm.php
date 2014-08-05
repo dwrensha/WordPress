@@ -24,7 +24,6 @@ function auto_login() {
            $user_login = 'Admin';
            $user = get_userdatabylogin($user_login);
            $user_id = $user->ID;
-           error_log($user_id);
            wp_set_current_user($user_id, $user_login);
            wp_set_auth_cookie($user_id);
            do_action('wp_login', $user_login);
