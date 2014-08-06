@@ -77,7 +77,9 @@ if ( is_wp_error( $user_id ) ) {
 
 update_option('active_plugins', array('sandstorm/sandstorm.php',
                                 'root-relative-urls/sb_root_relative_urls.php',
-                                'sqlite-integration/sqlite-integration.php'));
+                                'sqlite-integration/sqlite-integration.php',
+                                'wordpress-importer/wordpress-importer.php'));
+
 //activate_plugin('sandstorm/sandstorm.php');
 //activate_plugin('root-relative-urls/sb_root_relative_urls.php');
 
