@@ -139,6 +139,9 @@ function disable_plugin_deactivation( $actions, $plugin_file, $plugin_data, $con
     if ( array_key_exists( 'deactivate', $actions ) ) {
       unset( $actions['deactivate'] );
     }
+
+    $actions['warning'] = 'Important for Sandstorm integration.';
+
   }
   return $actions;
 }
