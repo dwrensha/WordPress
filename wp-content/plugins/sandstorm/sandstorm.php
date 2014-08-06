@@ -22,24 +22,25 @@ function auto_login() {
        $headers = apache_request_headers();
        $permissions = $headers['X-Sandstorm-Permissions'];
        $sandstorm_user_id = $headers['X-Sandstorm-User-Id'];
-       if (!(FALSE === strpos($permissions, 'admin'))) {
-           $user_login = 'Admin';
-           $user = get_userdatabylogin($user_login);
-           $user_id = $user->ID;
-           wp_set_current_user($user_id, $user_login);
-           wp_set_auth_cookie($user_id);
-           do_action('wp_login', $user_login);
-       } else if ($sandstorm_user_id) {
-           $user_id = username_exists($sandstorm_user_id);
-           if (!$user_id) {
-               $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-               $user_id = wp_create_user($sandstorm_user_id, $random_password, $sandstorm_user_id . '@example.com');
+
+       if ($sandstorm_user_id) {
+           $user = get_user_by('login', $sandstorm_user_id);
+           $user_id = '';
+           if (!$user) {
+               $user_id = wp_create_user($sandstorm_user_id, 'garply', $sandstorm_user_id . '@example.com');
                $username = $headers['X-Sandstorm-Username'];
                wp_update_user( array( 'ID' => $user_id,
                                       'nickname' => $username,
                                      'display_name' => $username,
                                      'role' => 'contributor'));
 
+           } else {
+               $user_id = $user->ID;
+               if ($user->role !== 'administrator' && !(FALSE === strpos($permissions, 'admin'))) {
+                      // If user is not admin but does own the grain, make them an admin.
+                      wp_update_user( array( 'ID' => $user->ID,
+                                             'role' => 'administrator'));
+              }
            }
            wp_set_current_user($user_id, $sandstorm_user_id);
            wp_set_auth_cookie($user_id);
@@ -111,8 +112,10 @@ function add_sandstorm_dashboard_widget() {
   remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
   remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');
 
-  wp_add_dashboard_widget( 'sandstorm_dashboard_widget', 'Sandstorm Publishing Information',
-                           'sandstorm_publishing_info');
+  if (current_user_can('publish_posts')) {
+      wp_add_dashboard_widget( 'sandstorm_dashboard_widget', 'Sandstorm Publishing Information',
+                               'sandstorm_publishing_info');
+  }
 
 }
 
