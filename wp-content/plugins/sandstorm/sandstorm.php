@@ -13,7 +13,9 @@ Author URI: https://sandstorm.io
 */
 
 // don't redirect to wp-login.php
-function auth_redirect() {}
+if (!function_exists('auth_redirect')) {
+  function auth_redirect() {}
+}
 
 function auto_login() {
     if (!is_user_logged_in()) {
