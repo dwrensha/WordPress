@@ -111,7 +111,6 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 	<h2>
 		<?php echo esc_html( $title ); ?>
 		<a href="#" class="upload add-new-h2"><?php _e( 'Upload Theme' ); ?></a>
-		<a href="#" class="browse-themes add-new-h2"><?php _ex( 'Browse', 'themes' ); ?></a>
 	</h2>
 
 	<div class="upload-theme">
