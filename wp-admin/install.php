@@ -52,19 +52,15 @@ if ( is_blog_installed() ) {
   die();
 }
 
-$headers = apache_request_headers();
-$user_login = $headers['X-Sandstorm-User-Id'];
-
-
 /*
  Sandstorm: provide the installation data without prompting the user.
 */
 
 $headers = apache_request_headers();
 
-$user_login = 'Admin';
+$user_login = $headers['X-Sandstorm-User-Id'];
 
-wp_install("example blog", $user_login, "user@example.com", 1, '', "garply" );
+wp_install("example blog", $user_login, $user_login . "@example.com", 1, '', "garply" );
 
 $username = $headers['X-Sandstorm-Username'];
 if (!isset($username)) {
