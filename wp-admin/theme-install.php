@@ -108,24 +108,10 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 
 ?>
 <div class="wrap">
-	<h2><?php
-	echo esc_html( $title );
-
-	/**
-	 * Filter the tabs shown on the Add Themes screen.
-	 *
-	 * This filter is for backwards compatibility only,
-	 * for the suppression of the upload tab.
-	 *
-	 * @since 2.8.0
-	 * @param array $tabs The tabs shown on the Add Themes screen. Default is 'upload'.
-	 */
-	$tabs = apply_filters( 'install_themes_tabs', array( 'upload' => __( 'Upload Theme' ) ) );
-	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_themes' ) ) {
-		echo ' <a href="#" class="upload add-new-h2">' . __( 'Upload Theme' ) . '</a>';
-		echo ' <a href="#" class="browse-themes add-new-h2">' . _x( 'Browse', 'themes' ) . '</a>';
-	}
-	?></h2>
+	<h2>
+		<?php echo esc_html( $title ); ?>
+		<a href="#" class="upload add-new-h2"><?php _e( 'Upload Theme' ); ?></a>
+	</h2>
 
 	<div class="upload-theme">
 	<?php install_themes_upload(); ?>
