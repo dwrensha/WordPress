@@ -131,16 +131,13 @@ function disable_plugin_deactivation( $actions, $plugin_file, $plugin_data, $con
                          'root-relative-urls/sb_root_relative_urls.php');
 
   if (in_array($plugin_file, $vital_plugins)) {
-    // Remove edit link.
-    if ( array_key_exists( 'edit', $actions ) ) {
-        unset( $actions['edit'] );
-    }
+
     // Remove deactivate link.
     if ( array_key_exists( 'deactivate', $actions ) ) {
       unset( $actions['deactivate'] );
     }
 
-    $actions['warning'] = 'Important for Sandstorm integration.';
+    $actions['warning'] = 'Needed by Sandstorm.';
 
   }
   return $actions;
