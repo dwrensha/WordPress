@@ -160,24 +160,12 @@ function sandstorm_search_form($orig) {
    }
 }
 
-/* -------------
-We include this tiny plugin inline:
-
-PLUGIN NAME: Remove WP version and shortlink
-PLUGIN URL:http://wordpress.org/extend/plugins/remove-wp-version-and-shortlink/
-DESCRIPTION: Removes Wordpress and version and short link
-AUTHOR: Naganandhini
-AUTHOR EMAIL: me@naganandhini.com
-AUTHOR URI:http://www.naganandhini.com/
-*/
-
-/*To remove RSD Link*/
+// Remove a bunch of things we don't want.
 remove_action('wp_head', 'rsd_link');
-/*To remove WLW Link*/
 remove_action('wp_head', 'wlwmanifest_link');
-/*To remove wordpress version*/
 remove_action('wp_head', 'wp_generator');
-/*To remove shortlink*/
 remove_action('wp_head', 'wp_shortlink_wp_head');
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action( 'wp_head', 'feed_links', 2 );
 
-// ---------------
+
