@@ -152,7 +152,8 @@ function sandstorm_search_form($orig) {
             '<input type="text" name="q" id="s" placeholder="Search" class="search-field">'.
             '</form>'.
             '<script type="text/javascript">'.
-            'Array.prototype.forEach.call(document.getElementsByClassName("google-search-input"), function (x) {x.value=window.location});</script>';
+            'Array.prototype.forEach.call(document.getElementsByClassName("google-search-input"), function (x) {x.value=window.location.host});'.
+            '</script>';
       return $form;
    }
 }
