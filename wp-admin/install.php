@@ -90,9 +90,8 @@ if ( is_wp_error( $user_id ) ) {
 
 
 update_option('active_plugins', array('sandstorm/sandstorm.php',
-                                      'sqlite-integration/sqlite-integration.php'));
-
-
+                                      'sqlite-integration/sqlite-integration.php',
+                                      'wordpress-importer/wordpress-importer.php'));
 
 global $wp_rewrite;
 $wp_rewrite->set_permalink_structure('/%year%/%monthnum%/%postname%/');
