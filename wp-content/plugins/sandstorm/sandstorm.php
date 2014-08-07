@@ -25,21 +25,24 @@ function auto_login() {
 
        if ($sandstorm_user_id) {
            $user = get_user_by('login', $sandstorm_user_id);
+           $user_role = '';
            $user_id = '';
            if (!$user) {
                $username = $headers['X-Sandstorm-Username'];
+               $user_role = 'contributor';
                $user_id = wp_insert_user(
                                array( 'user_login' => $sandstorm_user_id,
                                       'user_pass' => 'garply',
                                       'nickname' => $username,
                                       'display_name' => $username,
-                                      'role' => 'contributor',
+                                      'role' => $user_role,
                                       'user_email' => ($sandstorm_user_id . '@example.com')));
            } else {
                $user_id = $user->ID;
+               $user_role = $user->role;
            }
 
-           if ($user->role !== 'administrator' && !(FALSE === strpos($permissions, 'admin'))) {
+           if ($user_role !== 'administrator' && !(FALSE === strpos($permissions, 'admin'))) {
                  // If user is not admin but does own the grain, make them an admin.
                  wp_update_user( array( 'ID' => $user_id,
                                         'role' => 'administrator'));
