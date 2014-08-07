@@ -27,21 +27,24 @@ function auto_login() {
            $user = get_user_by('login', $sandstorm_user_id);
            $user_id = '';
            if (!$user) {
-               $user_id = wp_create_user($sandstorm_user_id, 'garply', $sandstorm_user_id . '@example.com');
                $username = $headers['X-Sandstorm-Username'];
-               wp_update_user( array( 'ID' => $user_id,
+               $user_id = wp_insert_user(
+                               array( 'user_login' => $sandstorm_user_id,
+                                      'user_pass' => 'garply',
                                       'nickname' => $username,
-                                     'display_name' => $username,
-                                     'role' => 'contributor'));
-
+                                      'display_name' => $username,
+                                      'role' => 'contributor',
+                                      'user_email' => ($sandstorm_user_id . '@example.com')));
            } else {
                $user_id = $user->ID;
-               if ($user->role !== 'administrator' && !(FALSE === strpos($permissions, 'admin'))) {
-                      // If user is not admin but does own the grain, make them an admin.
-                      wp_update_user( array( 'ID' => $user->ID,
-                                             'role' => 'administrator'));
-              }
            }
+
+           if ($user->role !== 'administrator' && !(FALSE === strpos($permissions, 'admin'))) {
+                 // If user is not admin but does own the grain, make them an admin.
+                 wp_update_user( array( 'ID' => $user_id,
+                                        'role' => 'administrator'));
+           }
+
            wp_set_current_user($user_id, $sandstorm_user_id);
            wp_set_auth_cookie($user_id);
            do_action('wp_login', $sandstorm_user_id);
