@@ -109,16 +109,18 @@ function sandstorm_publishing_info() {
 add_action('admin_post_generate_static', 'sandstorm_generate_static');
 
 function sandstorm_generate_static() {
-   sandstorm_publish();
-   wp_redirect(wp_guess_url() . '/wp-admin/index.php');
-   die();
+  if (current_user_can('publish_pages')) {
+    sandstorm_publish();
+    wp_redirect(wp_guess_url() . '/wp-admin/index.php');
+    die();
+  }
 }
 
 function add_sandstorm_dashboard_widget() {
   remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
   remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');
 
-  if (current_user_can('publish_posts')) {
+  if (current_user_can('publish_pages')) {
       wp_add_dashboard_widget( 'sandstorm_dashboard_widget', 'Sandstorm Publishing Information',
                                'sandstorm_publishing_info');
   }
