@@ -177,6 +177,8 @@ remove_action('wp_head', 'wlwmanifest_link');
 remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'wp_shortlink_wp_head');
 remove_action( 'wp_head', 'feed_links_extra', 3 );
-remove_action( 'wp_head', 'feed_links', 2 );
+
+# Feeds mostly work, but they get published at feed/index.html.
+#remove_action( 'wp_head', 'feed_links', 2 );
 
 
