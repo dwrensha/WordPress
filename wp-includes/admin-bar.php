@@ -294,7 +294,7 @@ function wp_admin_bar_site_menu( $wp_admin_bar ) {
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'site-name',
 			'id'     => 'view-site',
-			'title'  => __( 'Visit Site' ),
+			'title'  => __( 'Visit Private Site' ),
 			'href'   => home_url( '/' ),
 		) );
 
@@ -440,7 +440,7 @@ function wp_admin_bar_my_sites_menu( $wp_admin_bar ) {
 		$wp_admin_bar->add_menu( array(
 			'parent' => $menu_id,
 			'id'     => $menu_id . '-v',
-			'title'  => __( 'Visit Site' ),
+			'title'  => __( 'Visit Private Site' ),
 			'href'   => home_url( '/' ),
 		) );
 
