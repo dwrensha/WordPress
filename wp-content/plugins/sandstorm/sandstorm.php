@@ -87,7 +87,7 @@ function sandstorm_publishing_info() {
   <p/>
   <?php
 
-  echo "<code>host.example.com IN CNAME $lines[1] \n";
+  echo "<code>host.example.com IN CNAME $lines[1] <br>";
   echo "sandstorm-www.host.example.com IN TXT $lines[0] </code>";
   ?>
   <p/>
