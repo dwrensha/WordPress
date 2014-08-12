@@ -72,7 +72,7 @@ function sandstorm_publishing_info() {
   $lines = array();
   $result = exec('/sandstorm/bin/getPublicId', $lines);
 
-  echo "<p>Your site is available at: <a target='_blank' href='$lines[2]'>$lines[2]</a></p>";
+  echo "<p>Your public site is available at: <a target='_blank' href='$lines[2]'>$lines[2]</a></p>";
 
   if ($lines[3] == 'true') {
     echo "<p>If you weren't using a demo account, you could additionally publish the site to an arbitrary domain you control.</p>";
@@ -81,7 +81,7 @@ function sandstorm_publishing_info() {
 
   ?>
 
-  <p> To set up your domain to point at your published site,
+  <p> To set up your domain to point at your public site,
   add the following DNS records to your domain. Replace <code>host.example.com</code> with your site's hostname.
   </p>
   <p/>
