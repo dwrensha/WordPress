@@ -74,6 +74,25 @@ function sandstorm_publishing_info() {
 
   echo "<p>Your public site is available at: <a target='_blank' href='$lines[2]'>$lines[2]</a></p>";
 
+  ?>
+
+   <p>
+      To regenerate your public site, click the below button.
+      Note that you must click this button after making any changes
+      in order for those changes to become visible on the public site.
+   </p>
+
+  <form name="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" id="generate-static" class="initial-form hide-if-no-js">
+   <p class="submit">
+    <input type="hidden" name="action" value="generate_static">
+   <?php wp_nonce_field( 'generate-static' ); ?>
+   <?php submit_button(__('Regenerate Public Site'), 'primary', 'generate', false); ?>
+   <br class="clear"/>
+   </p>
+  </form>
+
+  <?php
+
   if ($lines[3] == 'true') {
     echo "<p>If you weren't using a demo account, you could additionally publish the site to an arbitrary domain you control.</p>";
     return;
@@ -95,14 +114,6 @@ function sandstorm_publishing_info() {
   Note: If your site may get a lot of traffic, consider putting it behind a CDN.
   <a href="https://cloudflare.com" target="_blank">CloudFlare</a>, for example, can do this for free.
   </p>
-  <form name="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" id="generate-static" class="initial-form hide-if-no-js">
-   <p class="submit">
-    <input type="hidden" name="action" value="generate_static">
-   <?php wp_nonce_field( 'generate-static' ); ?>
-   <?php submit_button(__('Regenerate Public Site'), 'primary', 'generate', false); ?>
-   <br class="clear"/>
-   </p>
-  </form>
   <?php
 }
 
