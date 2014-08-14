@@ -4,9 +4,9 @@ function wp_install_defaults() {
 
          update_option( 'default_comment_status', '' );
 
-         update_option('active_plugins', array('sandstorm/sandstorm.php',
-                                               'sqlite-integration/sqlite-integration.php',
-                                               'wordpress-importer/wordpress-importer.php'));
+         update_option('active_plugins', array(
+                                'sqlite-integration/sqlite-integration.php',
+                                'wordpress-importer/wordpress-importer.php'));
 
          global $wp_rewrite;
          $wp_rewrite->set_permalink_structure('/%year%/%monthnum%/%postname%/');
