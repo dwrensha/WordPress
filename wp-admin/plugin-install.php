@@ -103,16 +103,16 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 <h1>
 	<?php
 	echo esc_html( $title );
-	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_plugins' ) ) {
-		if ( $tab === 'upload' ) {
-			$href = self_admin_url( 'plugin-install.php' );
-			$text = _x( 'Browse', 'plugins' );
-		} else {
-			$href = self_admin_url( 'plugin-install.php?tab=upload' );
-			$text = __( 'Upload Plugin' );
-		}
-		echo ' <a href="' . $href . '" class="upload page-title-action">' . $text . '</a>';
-	}
+//	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_plugins' ) ) {
+//		if ( $tab === 'upload' ) {
+//			$href = self_admin_url( 'plugin-install.php' );
+//			$text = _x( 'Browse', 'plugins' );
+//		} else {
+//			$href = self_admin_url( 'plugin-install.php?tab=upload' );
+//			$text = __( 'Upload Plugin' );
+//		}
+//		echo ' <a href="' . $href . '" class="upload page-title-action">' . $text . '</a>';
+//	}
 	?>
 </h1>
 
