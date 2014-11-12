@@ -95,16 +95,16 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 <h2>
 	<?php
 	echo esc_html( $title );
-	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_plugins' ) ) {
-		if ( $tab === 'upload' ) {
-			$href = self_admin_url( 'plugin-install.php' );
-			$text = _x( 'Browse', 'plugins' );
-		} else {
-			$href = self_admin_url( 'plugin-install.php?tab=upload' );
-			$text = __( 'Upload Plugin' );
-		}
-		echo ' <a href="' . $href . '" class="upload add-new-h2">' . $text . '</a>';
-	}
+	//if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_plugins' ) ) {
+	//	if ( $tab === 'upload' ) {
+	//		$href = self_admin_url( 'plugin-install.php' );
+	//		$text = _x( 'Browse', 'plugins' );
+	//	} else {
+	//		$href = self_admin_url( 'plugin-install.php?tab=upload' );
+	//		$text = __( 'Upload Plugin' );
+	//	}
+	//	echo ' <a href="' . $href . '" class="upload add-new-h2">' . $text . '</a>';
+	//}
 	?>
 </h2>
 
