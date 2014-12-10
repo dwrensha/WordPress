@@ -62,7 +62,7 @@ $user_login = $headers['X-Sandstorm-User-Id'];
 
 wp_install("example blog", $user_login, $user_login . "@example.com", 1, '', "garply" );
 
-$username = $headers['X-Sandstorm-Username'];
+$username = urldecode($headers['X-Sandstorm-Username']);
 if (!isset($username)) {
   $username = 'sandstorm user';
 }
